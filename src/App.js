@@ -1,10 +1,28 @@
+import { useState, useCallback, useMemo } from "react";
+import { ChaildArea } from "./ChildArea";
 import "./styles.css";
 
-export default function App() {
+export const App = () => {
+  const [text, setText] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const onChangeText = (e) => setText(e.target.value);
+
+  const onClickOpen = () => setOpen(!open);
+
+
+  const onClickClose = useCallback(() => setOpen(false), [setOpen]);
+
+  const temp = useMemo(() => 1 + 3, []);
+  console.log(temp);
+
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+      <input value={text} onChange={onChangeText} />
+      <br />
+      <br />
+      <button onClick={onClickOpen}>表示</button>
+      <ChaildArea open={open} onClickClose={onClickClose} />
     </div>
   );
-}
+};
